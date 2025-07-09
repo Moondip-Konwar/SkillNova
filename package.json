@@ -1,0 +1,26 @@
+{
+  "name": "skillnova",
+  "version": "1.0.0",
+  "description": "## Fresh Start Due to the issues with the Canva site and all the messed up code, dependencies, etc. I am starting this from scratch. The old code is still availabe in the **old-main** branch.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Moondip-Konwar/SkillNova.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Moondip-Konwar/SkillNova/issues"
+  },
+  "homepage": "https://github.com/Moondip-Konwar/SkillNova#readme",
+  "dependencies": {
+    "express": "^5.1.0",
+    "fs": "^0.0.1-security",
+    "http": "^0.0.1-security",
+    "path": "^0.12.7"
+  }
+}
