@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+	<meta charset="UTF-8">
+	<link rel="icon" type="image/svg+xml" href="/vite.svg">
+	<meta name="generator" content="Hostinger Horizons">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>ExploreMe - Talent Wall | SkillNova</title>
+	<!-- <script type="module" crossorigin="" src="/assets/index-05629b3f.js"></script> -->
+	<link rel="stylesheet" href="css/index-8c24dad1.css">
+	<script type="module">
+		window.onerror = (message, source, lineno, colno, errorObj) => {
+			const errorDetails = errorObj ? JSON.stringify({
+				name: errorObj.name,
+				message: errorObj.message,
+				stack: errorObj.stack,
+				source,
+				lineno,
+				colno,
+			}) : null;
+
+			window.parent.postMessage({
+				type: 'horizons-runtime-error',
+				message,
+				error: errorDetails
+			}, '*');
+		};
+	</script>
+	<script type="module">
+		const observer = new MutationObserver((mutations) => {
+			for (const mutation of mutations) {
+				for (const addedNode of mutation.addedNodes) {
+					if (
+						addedNode.nodeType === Node.ELEMENT_NODE &&
+						(
+							addedNode.tagName?.toLowerCase() === 'vite-error-overlay' ||
+							addedNode.classList?.contains('backdrop')
+						)
+					) {
+						handleViteOverlay(addedNode);
+					}
+				}
+			}
+		});
+
+		observer.observe(document.documentElement, {
+			childList: true,
+			subtree: true
+		});
+
+		function handleViteOverlay(node) {
+			if (!node.shadowRoot) {
+				return;
+			}
+
+			const backdrop = node.shadowRoot.querySelector('.backdrop');
+
+			if (backdrop) {
+				const overlayHtml = backdrop.outerHTML;
+				const parser = new DOMParser();
+				const doc = parser.parseFromString(overlayHtml, 'text/html');
+				const messageBodyElement = doc.querySelector('.message-body');
+				const fileElement = doc.querySelector('.file');
+				const messageText = messageBodyElement ? messageBodyElement.textContent.trim() : '';
+				const fileText = fileElement ? fileElement.textContent.trim() : '';
+				const error = messageText + (fileText ? ' File:' + fileText : '');
+
+				window.parent.postMessage({
+					type: 'horizons-vite-error',
+					error,
+				}, '*');
+			}
+		}
+	</script>
+	<script type="module">
+		const originalConsoleError = console.error;
+		console.error = function (...args) {
+			originalConsoleError.apply(console, args);
+
+			let errorString = '';
+
+			for (let i = 0; i < args.length; i++) {
+				const arg = args[i];
+				if (arg instanceof Error) {
+					errorString = arg.stack || `${arg.name}: ${arg.message}`;
+					break;
+				}
+			}
+
+			if (!errorString) {
+				errorString = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : String(arg)).join(' ');
+			}
+
+			window.parent.postMessage({
+				type: 'horizons-console-error',
+				error: errorString
+			}, '*');
+		};
+	</script>
+	<script type="module">
+		const originalFetch = window.fetch;
+
+		window.fetch = function (...args) {
+			const url = args[0] instanceof Request ? args[0].url : args[0];
+
+			// Skip WebSocket URLs
+			if (url.startsWith('ws:') || url.startsWith('wss:')) {
+				return originalFetch.apply(this, args);
+			}
+
+			return originalFetch.apply(this, args)
+				.then(async response => {
+					const contentType = response.headers.get('Content-Type') || '';
+
+					// Exclude HTML document responses
+					const isDocumentResponse =
+						contentType.includes('text/html') ||
+						contentType.includes('application/xhtml+xml');
+
+					if (!response.ok && !isDocumentResponse) {
+						const responseClone = response.clone();
+						const errorFromRes = await responseClone.text();
+						const requestUrl = response.url;
+						console.error(`Fetch error from ${requestUrl}: ${errorFromRes}`);
+					}
+
+					return response;
+				})
+				.catch(error => {
+					if (!url.match(/.html?$/i)) {
+						console.error(error);
+					}
+
+					throw error;
+				});
+		};
+	</script>
+	<meta name="description"
+		content="Discover and showcase amazing student talents, art, code, poetry, and creative projects at SCS Borjhar."
+		data-react-helmet="true">
+</head>
+
+<body>
+	<div id="root">
+		<div class="min-h-screen">
+			<div class="min-h-screen pb-20">
+				<div class="px-6 py-8">
+					<div class="text-center mb-8" style="opacity: 1; transform: none;">
+						<div class="flex justify-center mb-4">
+							<div
+								class="w-16 h-16 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full flex items-center justify-center">
+								<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="w-8 h-8 text-white">
+									<polygon
+										points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+									</polygon>
+								</svg></div>
+						</div>
+						<h1 class="text-3xl font-bold text-white mb-2">ExploreMe</h1>
+						<p class="text-white/70">Discover amazing student talents and creativity</p>
+					</div>
+					<div class="flex flex-col sm:flex-row gap-4 mb-6"><button
+							class="inline-flex items-center justify-center rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-10 px-4 py-2 bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white font-semibold"><svg
+								xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+								fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+								stroke-linejoin="round" class="w-4 h-4 mr-2">
+								<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+								<polyline points="17 8 12 3 7 8"></polyline>
+								<line x1="12" x2="12" y1="3" y2="15"></line>
+							</svg>Submit Your Talent</button>
+						<div class="flex-1 relative"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+								viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+								stroke-linecap="round" stroke-linejoin="round"
+								class="absolute left-3 top-1/2 transform -translate-y-1/2 text-white/50 w-4 h-4">
+								<circle cx="11" cy="11" r="8"></circle>
+								<path d="m21 21-4.3-4.3"></path>
+							</svg><input
+								class="flex h-10 w-full rounded-md border px-3 py-2 text-sm ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 pl-10 bg-white/10 border-white/20 text-white placeholder:text-white/50"
+								placeholder="Search talents..." value=""></div>
+					</div>
+					<div class="flex flex-wrap gap-2 mb-6"><button
+							class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-primary/90 h-9 rounded-md px-3 bg-gray-500 text-white">All</button><button
+							class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white">Art
+							&amp; Design</button><button
+							class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white">Programming</button><button
+							class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white">Poetry
+							&amp; Writing</button><button
+							class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white">Science
+							Projects</button><button
+							class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white">Music
+							&amp; Dance</button><button
+							class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white">Other</button>
+					</div>
+				</div>
+				<div class="px-6">
+					<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+						<div style="opacity: 1; transform: none;">
+							<div
+								class="rounded-lg border bg-card text-card-foreground shadow-sm skill-card group cursor-pointer">
+								<div class="flex flex-col space-y-1.5 p-6">
+									<div class="flex items-start justify-between">
+										<div class="flex-1">
+											<h3 class="font-semibold tracking-tight text-white text-lg mb-2">Digital Art
+												Portrait</h3>
+											<div
+												class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80 bg-pink-500 text-white text-xs">
+												Art &amp; Design</div>
+										</div>
+									</div>
+								</div>
+								<div class="p-6 pt-0">
+									<p class="text-white/70 mb-4">A digital portrait I created using Procreate</p>
+									<div class="flex items-center justify-between text-sm text-white/60"><span>by
+											Anonymous</span>
+										<div class="flex items-center space-x-4"><button
+												class="flex items-center space-x-1 hover:text-red-400 transition-colors"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path
+														d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+													</path>
+												</svg><span>24</span></button>
+											<div class="flex items-center space-x-1"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+													<circle cx="12" cy="12" r="3"></circle>
+												</svg><span>156</span></div>
+											<div class="flex items-center space-x-1"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+												</svg><span>8</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="opacity: 1; transform: none;">
+							<div
+								class="rounded-lg border bg-card text-card-foreground shadow-sm skill-card group cursor-pointer">
+								<div class="flex flex-col space-y-1.5 p-6">
+									<div class="flex items-start justify-between">
+										<div class="flex-1">
+											<h3 class="font-semibold tracking-tight text-white text-lg mb-2">Python
+												Calculator App</h3>
+											<div
+												class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80 bg-blue-500 text-white text-xs">
+												Programming</div>
+										</div>
+									</div>
+								</div>
+								<div class="p-6 pt-0">
+									<p class="text-white/70 mb-4">A simple calculator built with Python and Tkinter</p>
+									<div class="flex items-center justify-between text-sm text-white/60"><span>by
+											CodeMaster9</span>
+										<div class="flex items-center space-x-4"><button
+												class="flex items-center space-x-1 hover:text-red-400 transition-colors"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path
+														d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+													</path>
+												</svg><span>18</span></button>
+											<div class="flex items-center space-x-1"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+													<circle cx="12" cy="12" r="3"></circle>
+												</svg><span>89</span></div>
+											<div class="flex items-center space-x-1"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+												</svg><span>5</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div style="opacity: 1; transform: none;">
+							<div
+								class="rounded-lg border bg-card text-card-foreground shadow-sm skill-card group cursor-pointer">
+								<div class="flex flex-col space-y-1.5 p-6">
+									<div class="flex items-start justify-between">
+										<div class="flex-1">
+											<h3 class="font-semibold tracking-tight text-white text-lg mb-2">Poem:
+												Dreams of Tomorrow</h3>
+											<div
+												class="inline-flex items-center rounded-full border px-2.5 py-0.5 font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 border-transparent hover:bg-primary/80 bg-purple-500 text-white text-xs">
+												Poetry &amp; Writing</div>
+										</div>
+									</div>
+								</div>
+								<div class="p-6 pt-0">
+									<p class="text-white/70 mb-4">An original poem about hopes and aspirations</p>
+									<div class="flex items-center justify-between text-sm text-white/60"><span>by
+											Anonymous</span>
+										<div class="flex items-center space-x-4"><button
+												class="flex items-center space-x-1 hover:text-red-400 transition-colors"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path
+														d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+													</path>
+												</svg><span>31</span></button>
+											<div class="flex items-center space-x-1"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+													<circle cx="12" cy="12" r="3"></circle>
+												</svg><span>203</span></div>
+											<div class="flex items-center space-x-1"><svg
+													xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+													viewBox="0 0 24 24" fill="none" stroke="currentColor"
+													stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+													class="w-4 h-4">
+													<path d="m3 21 1.9-5.7a8.5 8.5 0 1 1 3.8 3.8z"></path>
+												</svg><span>12</span></div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<nav class="fixed bottom-0 left-0 right-0 z-50 glass-effect border-t border-white/20">
+					<div class="flex justify-around items-center py-2 px-4"><a class="relative" href="/">
+							<div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+								tabindex="0" style="transform: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24"
+									height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+									<path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+									<polyline points="9 22 9 12 15 12 15 22"></polyline>
+								</svg><span class="text-xs font-medium relative z-10">Home</span></div>
+						</a><a class="relative" href="/explore">
+							<div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white"
+								tabindex="0" style="transform: none;">
+								<div class="absolute inset-0 bg-white/20 rounded-lg"
+									style="transform: none; transform-origin: 50% 50% 0px;"></div><svg
+									xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+									fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+									stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+									<polygon
+										points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+									</polygon>
+								</svg><span class="text-xs font-medium relative z-10">ExploreMe</span>
+							</div>
+						</a><a class="relative" href="/skillbox">
+							<div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+								tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+									<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+									<path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+								</svg><span class="text-xs font-medium relative z-10">SkillBox</span></div>
+						</a><a class="relative" href="/mindgym">
+							<div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+								tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+									<path
+										d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+									</path>
+								</svg><span class="text-xs font-medium relative z-10">Mind Gym</span></div>
+						</a><a class="relative" href="/mytrack">
+							<div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+								tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+									<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+									<polyline points="16 7 22 7 22 13"></polyline>
+								</svg><span class="text-xs font-medium relative z-10">MyTrack</span></div>
+						</a><a class="relative" href="/feedback">
+							<div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+								tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+									viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+									stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+									<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+								</svg><span class="text-xs font-medium relative z-10">Feedback</span></div>
+						</a></div>
+				</nav>
+			</div>
+			<div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events: none;">
+				<ol tabindex="-1"
+					class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]">
+				</ol>
+			</div>
+		</div>
+	</div>
+
+
+
+</body>
+
+</html>
