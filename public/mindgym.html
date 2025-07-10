@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <link rel="icon" type="image/svg+xml" href="/vite.svg">
+    <meta name="generator" content="Hostinger Horizons">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mind Gym - Wellness Space | SkillNova</title>
+    <!-- <script type="module" crossorigin="" src="/assets/index-05629b3f.js"></script> -->
+    <link rel="stylesheet" href="css/index-8c24dad1.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script type="module">
+        window.onerror = (message, source, lineno, colno, errorObj) => {
+            const errorDetails = errorObj ? JSON.stringify({
+                name: errorObj.name,
+                message: errorObj.message,
+                stack: errorObj.stack,
+                source,
+                lineno,
+                colno,
+            }) : null;
+
+            window.parent.postMessage({
+                type: 'horizons-runtime-error',
+                message,
+                error: errorDetails
+            }, '*');
+        };
+    </script>
+    <script type="module">
+        const observer = new MutationObserver((mutations) => {
+            for (const mutation of mutations) {
+                for (const addedNode of mutation.addedNodes) {
+                    if (
+                        addedNode.nodeType === Node.ELEMENT_NODE &&
+                        (
+                            addedNode.tagName?.toLowerCase() === 'vite-error-overlay' ||
+                            addedNode.classList?.contains('backdrop')
+                        )
+                    ) {
+                        handleViteOverlay(addedNode);
+                    }
+                }
+            }
+        });
+
+        observer.observe(document.documentElement, {
+            childList: true,
+            subtree: true
+        });
+
+        function handleViteOverlay(node) {
+            if (!node.shadowRoot) {
+                return;
+            }
+
+            const backdrop = node.shadowRoot.querySelector('.backdrop');
+
+            if (backdrop) {
+                const overlayHtml = backdrop.outerHTML;
+                const parser = new DOMParser();
+                const doc = parser.parseFromString(overlayHtml, 'text/html');
+                const messageBodyElement = doc.querySelector('.message-body');
+                const fileElement = doc.querySelector('.file');
+                const messageText = messageBodyElement ? messageBodyElement.textContent.trim() : '';
+                const fileText = fileElement ? fileElement.textContent.trim() : '';
+                const error = messageText + (fileText ? ' File:' + fileText : '');
+
+                window.parent.postMessage({
+                    type: 'horizons-vite-error',
+                    error,
+                }, '*');
+            }
+        }
+    </script>
+    <script type="module">
+        const originalConsoleError = console.error;
+        console.error = function (...args) {
+            originalConsoleError.apply(console, args);
+
+            let errorString = '';
+
+            for (let i = 0; i < args.length; i++) {
+                const arg = args[i];
+                if (arg instanceof Error) {
+                    errorString = arg.stack || `${arg.name}: ${arg.message}`;
+                    break;
+                }
+            }
+
+            if (!errorString) {
+                errorString = args.map(arg => typeof arg === 'object' ? JSON.stringify(arg) : String(arg)).join(' ');
+            }
+
+            window.parent.postMessage({
+                type: 'horizons-console-error',
+                error: errorString
+            }, '*');
+        };
+    </script>
+    <script type="module">
+        const originalFetch = window.fetch;
+
+        window.fetch = function (...args) {
+            const url = args[0] instanceof Request ? args[0].url : args[0];
+
+            // Skip WebSocket URLs
+            if (url.startsWith('ws:') || url.startsWith('wss:')) {
+                return originalFetch.apply(this, args);
+            }
+
+            return originalFetch.apply(this, args)
+                .then(async response => {
+                    const contentType = response.headers.get('Content-Type') || '';
+
+                    // Exclude HTML document responses
+                    const isDocumentResponse =
+                        contentType.includes('text/html') ||
+                        contentType.includes('application/xhtml+xml');
+
+                    if (!response.ok && !isDocumentResponse) {
+                        const responseClone = response.clone();
+                        const errorFromRes = await responseClone.text();
+                        const requestUrl = response.url;
+                        console.error(`Fetch error from ${requestUrl}: ${errorFromRes}`);
+                    }
+
+                    return response;
+                })
+                .catch(error => {
+                    if (!url.match(/.html?$/i)) {
+                        console.error(error);
+                    }
+
+                    throw error;
+                });
+        };
+    </script>
+    <meta name="description"
+        content="Your safe space for mental wellness, mood tracking, gratitude journaling, and positive reflection at SCS Borjhar."
+        data-react-helmet="true">
+</head>
+
+<body>
+    <div id="root">
+        <div class="min-h-screen">
+            <div class="min-h-screen pb-20">
+                <div class="fade-up px-6 py-8">
+                    <div class="text-center mb-8" style="opacity: 1; transform: none;">
+                        <div class="flex justify-center mb-4">
+                            <div
+                                class="w-16 h-16 bg-gradient-to-br from-pink-400 to-red-500 rounded-full flex items-center justify-center">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="w-8 h-8 text-white">
+                                    <path
+                                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                                    </path>
+                                </svg></div>
+                        </div>
+                        <h1 class="text-3xl font-bold text-white mb-2">Mind Gym</h1>
+                        <p class="text-white/70">Your safe space for wellness and reflection</p>
+                    </div>
+                    <div class="flex flex-wrap justify-center gap-2 mb-8"><button
+                            class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 bg-primary hover:bg-primary/90 h-9 rounded-md px-3 bg-gradient-to-r from-pink-500 to-red-500 text-white"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="w-4 h-4 mr-2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                <line x1="9" x2="9.01" y1="9" y2="9"></line>
+                                <line x1="15" x2="15.01" y1="9" y2="9"></line>
+                            </svg>Mood Tracker</button><button
+                            class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="w-4 h-4 mr-2">
+                                <path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"></path>
+                                <polyline points="10 2 10 10 13 7 16 10 16 2"></polyline>
+                            </svg>Gratitude</button><button
+                            class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="w-4 h-4 mr-2">
+                                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                            </svg>Safe Space</button><button
+                            class="inline-flex items-center justify-center text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 border bg-background hover:bg-accent h-9 rounded-md px-3 border-white/20 text-white/70 hover:text-white"><svg
+                                xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" class="w-4 h-4 mr-2">
+                                <path
+                                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                                </path>
+                            </svg>Positivity</button></div>
+                </div>
+                <div class="fade-up px-6">
+                    <div style="opacity: 1; transform: none;">
+                        <div class="rounded-lg border bg-card text-card-foreground shadow-sm skill-card mb-6">
+                            <div class="flex flex-col space-y-1.5 p-6">
+                                <h3
+                                    class="text-2xl font-semibold leading-none tracking-tight text-white flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="w-5 h-5 mr-2">
+                                        <circle cx="12" cy="12" r="10"></circle>
+                                        <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+                                        <line x1="9" x2="9.01" y1="9" y2="9"></line>
+                                        <line x1="15" x2="15.01" y1="9" y2="9"></line>
+                                    </svg>How are you feeling today?</h3>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <div class="grid grid-cols-4 gap-3"><button
+                                        class="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors">
+                                        <div class="text-3xl mb-1">😊</div><span
+                                            class="text-white/70 text-xs">Happy</span>
+                                    </button><button
+                                        class="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors">
+                                        <div class="text-3xl mb-1">😌</div><span
+                                            class="text-white/70 text-xs">Calm</span>
+                                    </button><button
+                                        class="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors">
+                                        <div class="text-3xl mb-1">😔</div><span
+                                            class="text-white/70 text-xs">Sad</span>
+                                    </button><button
+                                        class="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors">
+                                        <div class="text-3xl mb-1">😰</div><span
+                                            class="text-white/70 text-xs">Anxious</span>
+                                    </button><button
+                                        class="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors">
+                                        <div class="text-3xl mb-1">😴</div><span
+                                            class="text-white/70 text-xs">Tired</span>
+                                    </button><button
+                                        class="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors">
+                                        <div class="text-3xl mb-1">😡</div><span
+                                            class="text-white/70 text-xs">Angry</span>
+                                    </button><button
+                                        class="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors">
+                                        <div class="text-3xl mb-1">🤔</div><span
+                                            class="text-white/70 text-xs">Confused</span>
+                                    </button><button
+                                        class="flex flex-col items-center p-3 rounded-lg hover:bg-white/10 transition-colors">
+                                        <div class="text-3xl mb-1">🥳</div><span
+                                            class="text-white/70 text-xs">Excited</span>
+                                    </button></div>
+                            </div>
+                        </div>
+                        <div class="rounded-lg border bg-card text-card-foreground shadow-sm skill-card">
+                            <div class="flex flex-col space-y-1.5 p-6">
+                                <h3
+                                    class="text-2xl font-semibold leading-none tracking-tight text-white flex items-center">
+                                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                        stroke-linejoin="round" class="w-5 h-5 mr-2">
+                                        <rect width="18" height="18" x="3" y="4" rx="2" ry="2"></rect>
+                                        <line x1="16" x2="16" y1="2" y2="6"></line>
+                                        <line x1="8" x2="8" y1="2" y2="6"></line>
+                                        <line x1="3" x2="21" y1="10" y2="10"></line>
+                                    </svg>Recent Moods</h3>
+                            </div>
+                            <div class="p-6 pt-0">
+                                <div class="space-y-3">
+                                    <div class="flex items-center justify-between">
+                                        <div class="flex items-center space-x-3"><span class="text-2xl">😊</span><span
+                                                class="text-white">Happy</span></div><span
+                                            class="text-white/60 text-sm">Sat Jul 05 2025</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- <nav class="fixed bottom-0 left-0 right-0 z-50 glass-effect border-t border-white/20">
+                    <div class="flex justify-around items-center py-2 px-4"><a class="relative" href="/">
+                            <div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+                                tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+                                    <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+                                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
+                                </svg><span class="text-xs font-medium relative z-10">Home</span></div>
+                        </a><a class="relative" href="/explore">
+                            <div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+                                tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+                                    <polygon
+                                        points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2">
+                                    </polygon>
+                                </svg><span class="text-xs font-medium relative z-10">ExploreMe</span></div>
+                        </a><a class="relative" href="/skillbox">
+                            <div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+                                tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+                                    <path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path>
+                                    <path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path>
+                                </svg><span class="text-xs font-medium relative z-10">SkillBox</span></div>
+                        </a><a class="relative" href="/mindgym">
+                            <div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white"
+                                tabindex="0" style="transform: none;">
+                                <div class="absolute inset-0 bg-white/20 rounded-lg"
+                                    style="transform: none; transform-origin: 50% 50% 0px;"></div><svg
+                                    xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                    stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+                                    <path
+                                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+                                    </path>
+                                </svg><span class="text-xs font-medium relative z-10">Mind Gym</span>
+                            </div>
+                        </a><a class="relative" href="/mytrack">
+                            <div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+                                tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+                                    <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                                    <polyline points="16 7 22 7 22 13"></polyline>
+                                </svg><span class="text-xs font-medium relative z-10">MyTrack</span></div>
+                        </a><a class="relative" href="/feedback">
+                            <div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
+                                tabindex="0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                    viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                    stroke-linecap="round" stroke-linejoin="round" class="w-5 h-5 mb-1 relative z-10">
+                                    <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                                </svg><span class="text-xs font-medium relative z-10">Feedback</span></div>
+                        </a></div>
+                </nav> -->
+            <div id="tabBar-container">
+				<div id="tabBar"></div>
+				<script>
+					fetch('tabBar.html')
+						.then(res => res.text())
+						.then(html => {
+							document.getElementById('tabBar').innerHTML = html;
+							// Call after tabBar is loaded
+							highlight_tab('Mind Gym');
+						});
+
+					function highlight_tab(tabText) {
+						const tabBar = document.querySelector('nav .flex');
+						if (!tabBar) return;
+						const tabs = tabBar.querySelectorAll('a > div');
+
+						tabs.forEach(tab => {
+							tab.classList.remove('text-white');
+							tab.classList.add('text-white/60');
+							// Remove highlight background if present
+							const highlightBg = tab.querySelector('.absolute.inset-0.bg-white\\/20');
+							if (highlightBg) highlightBg.remove();
+						});
+
+						// Find the tab with the specified text
+						const targetTab = Array.from(tabs).find(tab => {
+							const span = tab.querySelector('span');
+							return span && span.textContent.trim() === tabText;
+						});
+
+						if (targetTab) {
+							targetTab.classList.remove('text-white/60');
+							targetTab.classList.add('text-white');
+							const highlightDiv = document.createElement('div');
+							highlightDiv.className = 'absolute inset-0 bg-white/20 rounded-lg';
+							highlightDiv.style.opacity = '1';
+							targetTab.insertBefore(highlightDiv, targetTab.firstChild);
+						}
+					}
+				</script>
+				</div>
+            </div>
+            <div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events: none;">
+                <ol tabindex="-1"
+                    class="fixed top-0 z-[100] flex max-h-screen w-full flex-col-reverse p-4 sm:bottom-0 sm:right-0 sm:top-auto sm:flex-col md:max-w-[420px]">
+                </ol>
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+<script src="js/script.js"></script>
+</html>
