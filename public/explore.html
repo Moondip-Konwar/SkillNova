@@ -342,7 +342,7 @@
 						</div>
 					</div>
 				</div>
-				<nav class="fixed bottom-0 left-0 right-0 z-50 glass-effect border-t border-white/20">
+				<!-- <nav class="fixed bottom-0 left-0 right-0 z-50 glass-effect border-t border-white/20">
 					<div class="flex justify-around items-center py-2 px-4"><a class="relative" href="/">
 							<div class="flex flex-col items-center p-2 rounded-lg transition-colors text-white/60"
 								tabindex="0" style="transform: none;"><svg xmlns="http://www.w3.org/2000/svg" width="24"
@@ -397,7 +397,48 @@
 									<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
 								</svg><span class="text-xs font-medium relative z-10">Feedback</span></div>
 						</a></div>
-				</nav>
+				</nav> -->
+				<div id="tabBar-container">
+				<div id="tabBar"></div>
+				<script>
+					fetch('tabBar.html')
+						.then(res => res.text())
+						.then(html => {
+							document.getElementById('tabBar').innerHTML = html;
+							// Call after tabBar is loaded
+							highlight_tab('ExploreMe');
+						});
+
+					function highlight_tab(tabText) {
+						const tabBar = document.querySelector('nav .flex');
+						if (!tabBar) return;
+						const tabs = tabBar.querySelectorAll('a > div');
+
+						tabs.forEach(tab => {
+							tab.classList.remove('text-white');
+							tab.classList.add('text-white/60');
+							// Remove highlight background if present
+							const highlightBg = tab.querySelector('.absolute.inset-0.bg-white\\/20');
+							if (highlightBg) highlightBg.remove();
+						});
+
+						// Find the tab with the specified text
+						const targetTab = Array.from(tabs).find(tab => {
+							const span = tab.querySelector('span');
+							return span && span.textContent.trim() === tabText;
+						});
+
+						if (targetTab) {
+							targetTab.classList.remove('text-white/60');
+							targetTab.classList.add('text-white');
+							const highlightDiv = document.createElement('div');
+							highlightDiv.className = 'absolute inset-0 bg-white/20 rounded-lg';
+							highlightDiv.style.opacity = '1';
+							targetTab.insertBefore(highlightDiv, targetTab.firstChild);
+						}
+					}
+				</script>
+				</div>
 			</div>
 			<div role="region" aria-label="Notifications (F8)" tabindex="-1" style="pointer-events: none;">
 				<ol tabindex="-1"
