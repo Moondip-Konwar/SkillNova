@@ -10,6 +10,8 @@
 	<title>SkillNova - Student Empowerment Platform</title>
 	<!-- <script type="module" crossorigin="" src="js/index-05629b3f.js"></script> -->
 	<link rel="stylesheet" href="css/index-8c24dad1.css">
+	<link rel="stylesheet" href="css/style.css">
+
 	<script type="module">
 		window.onerror = (message, source, lineno, colno, errorObj) => {
 			const errorDetails = errorObj ? JSON.stringify({
@@ -184,15 +186,17 @@
 
 				<div class="relative overflow-hidden">
 					<div class="absolute inset-0 bg-gradient-to-br from-gray-900 via-gray-900 to-black"></div>
-					<div class="relative px-6 py-12">
+					<div class="relative px-6 py-12 fade-up">
 						<div class="text-center" style="opacity: 1; transform: none;">
 							<div class="flex justify-center mb-6">
 								<div class="relative" style="transform: rotate(27.108deg) translateZ(0px);">
 									<div
 										class="w-20 h-20 bg-gradient-to-br from-purple-600 to-blue-500 rounded-full flex items-center justify-center pulse-glow">
+										<!-- Logo -->
 										<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
 											viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-											stroke-linecap="round" stroke-linejoin="round" class="w-10 h-10 text-white"
+											stroke-linecap="round" stroke-linejoin="round" 
+											class="w-10 h-10 text-white"
 											style="animation: spin 30s linear infinite;">
 											<style>
 												@keyframes spin {
@@ -216,6 +220,7 @@
 									</div>
 								</div>
 							</div>
+							<!-- Title -->
 							<h1 class="text-4xl md:text-6xl font-bold mb-4"><span class="gradient-text">SkillNova</span>
 							</h1>
 							<p class="text-xl md:text-2xl text-white/90 mb-2">The Student Empowerment Platform</p>
@@ -582,5 +587,6 @@
 
 
 </body>
-
+	<!-- Fade-up -->
+	<script src="js/script.js"></script>
 </html>
